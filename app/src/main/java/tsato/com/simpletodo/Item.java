@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Item {
     public enum Priority {HIGH, MID, LOW}
-    public enum Status {DONE, TODO}
+    public enum Status {TODO, DONE, PENDING}
 
     private String taskName;
     private String dueDate;

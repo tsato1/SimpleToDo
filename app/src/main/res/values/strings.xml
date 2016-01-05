@@ -1,4 +1,27 @@
 <resources>
     <string name="app_name">SimpleToDo</string>
     <string name="action_settings">Settings</string>
+    <string name="action_add">Add</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+
+    <string name="item_taskname">Task Name</string>
+    <string name="item_duedate">Due Date</string>
+    <string name="item_memo">Memo</string>
+    <string name="item_priority">Priority</string>
+    <string name="item_status">Status</string>
+
+    <string name="hint_max_10">Max 10 characters</string>
+    <string name="hint_max_30">Max 30 characters</string>
+
+    <array name="array_priority">
+        <item>High</item>
+        <item>Mid</item>
+        <item>Low</item>
+    </array>
+    <array name="array_status">
+        <item>To-Do</item>
+        <item>Done</item>
+        <item>Pending</item>
+    </array>
 </resources>
