@@ -76,6 +76,7 @@ public class EditActivity extends AppCompatActivity {
         DBAdapter dbAdapter = new DBAdapter(this);
 
         Item item = new Item(
+                "",
                 mTaskNameEditText.getText().toString(),
                 DateFormat.getDateInstance().format(mDueDatePicker.getCalendarView().getDate()),
                 mMemoEditText.getText().toString(),
@@ -91,7 +92,7 @@ public class EditActivity extends AppCompatActivity {
 
         dbAdapter.open();
         if (dbAdapter.saveItem(item)) {
-            Toast.makeText(this, getString(R.string.save_successful), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.info_save_successful), Toast.LENGTH_SHORT).show();
         };
         dbAdapter.close();
     }
@@ -116,7 +117,6 @@ public class EditActivity extends AppCompatActivity {
         } else if (id == R.id.action_save) {
             if (isReadyToSave()) {
                 doSaveItem();
-                Toast.makeText(this, getString(R.string.save_successful), Toast.LENGTH_SHORT).show();
                 finish();
             }
         }

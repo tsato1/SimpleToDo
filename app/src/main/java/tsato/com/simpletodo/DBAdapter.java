@@ -15,7 +15,7 @@ public class DBAdapter {
     private static final String DATABASE_NAME = "simpletodo.db";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_ITEM = "items";
-    private static final String COL_ID = "_id";
+    public static final String COL_ID = "_id";
     public static final String COL_TASKNAME = "taskname";
     public static final String COL_DUEDATE = "duedate";
     public static final String COL_MEMO = "memo";

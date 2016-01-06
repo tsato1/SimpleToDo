@@ -1,5 +1,8 @@
 package tsato.com.simpletodo;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -7,15 +10,21 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private final static int REQUEST_EDIT = 1;
+    private final static int REQUEST_EDIT = 0;
 
     private ArrayList<Item> mItemList = null;
     private ListView mItemListView = null;
@@ -33,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         mItemListView = (ListView) findViewById(R.id.lsv_todos);
         mItemListAdapter = new ItemListAdapter(this, 0, mItemList);
         mItemListView.setAdapter(mItemListAdapter);
+        mItemListView.setOnItemClickListener(new ListItemClickListener());
+        mItemListView.setOnItemLongClickListener(new ListItemLongClickListener());
 
         mDBAdapter = new DBAdapter(this);
         loadItems();
@@ -47,6 +58,57 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public class ListItemClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final View itemDetailView = layoutInflater.inflate(R.layout.dialog_item_detail, null);
+
+            Item item = (Item) parent.getItemAtPosition(position);
+            ((TextView) itemDetailView.findViewById(R.id.txv_taskname)).setText(item.getTaskName());
+            ((TextView) itemDetailView.findViewById(R.id.txv_due)).setText(item.getDueDate());
+            ((TextView) itemDetailView.findViewById(R.id.txv_memo)).setText(item.getMemo());
+            ((TextView) itemDetailView.findViewById(R.id.txv_priority)).setText(item.getPriority().toString());
+            ((TextView) itemDetailView.findViewById(R.id.txv_status)).setText(item.getStatus().toString());
+
+            AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+            dialog.setIcon(R.mipmap.ic_launcher);
+            dialog.setTitle(getApplicationContext().getString(R.string.title_item_detail));
+            dialog.setView(itemDetailView);
+            dialog.setPositiveButton(R.string.action_edit, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            dialog.show();
+        }
+    }
+
+    public class ListItemLongClickListener implements AdapterView.OnItemLongClickListener {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            final Item item = (Item) parent.getItemAtPosition(position);
+
+            AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+            dialog.setIcon(R.mipmap.ic_launcher);
+            dialog.setTitle(getApplicationContext().getString(R.string.warning_delete_item));
+            dialog.setPositiveButton(R.string.action_delete, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mDBAdapter.open();
+                    if (mDBAdapter.deleteItem(Integer.parseInt(item.getId()))) {
+                        Toast.makeText(getApplicationContext(), getString(R.string.info_delete_successful), Toast.LENGTH_SHORT).show();
+                    }
+                    mDBAdapter.close();
+                    loadItems();
+                }
+            });
+            dialog.show();
+            return true;
+        }
+    }
+
     private void loadItems() {
         mItemList.clear();
         mDBAdapter.open();
@@ -55,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         if (c.moveToFirst()) {
             do {
                 Item item = new Item(
+                        c.getString(c.getColumnIndex(DBAdapter.COL_ID)),
                         c.getString(c.getColumnIndex(DBAdapter.COL_TASKNAME)),
                         c.getString(c.getColumnIndex(DBAdapter.COL_DUEDATE)),
                         c.getString(c.getColumnIndex(DBAdapter.COL_MEMO)),

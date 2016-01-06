@@ -9,18 +9,24 @@ public class Item {
     public enum Priority {HIGH, MID, LOW,;}
     public enum Status {TODO, DONE, PENDING}
 
+    private String id;
     private String taskName;
     private String dueDate;
     private String memo;
     private Priority priority;
     private Status status;
 
-    public Item(String taskName, String dueDate, String memo, Priority priority, Status status) {
+    public Item(String id, String taskName, String dueDate, String memo, Priority priority, Status status) {
+        this.id = id;
         this.taskName = taskName;
         this.dueDate = dueDate;
         this.memo = memo;
         this.priority = priority;
         this.status = status;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getTaskName() {
