@@ -14,13 +14,17 @@
     <string name="hint_max_10">Max 10 characters</string>
     <string name="hint_max_30">Max 30 characters</string>
 
+    <string name="error_enter_taskname">Please enter the task name.</string>
+
+    <string name="save_successful">Item was successfully saved.</string>
+
     <array name="array_priority">
         <item>High</item>
         <item>Mid</item>
         <item>Low</item>
     </array>
     <array name="array_status">
-        <item>To-Do</item>
+        <item>ToDo</item>
         <item>Done</item>
         <item>Pending</item>
     </array>

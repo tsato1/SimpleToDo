@@ -19,8 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/item_taskname"
-                android:textStyle="bold"/>
+                android:text="@string/item_taskname"/>
             <EditText
                 android:id="@+id/edt_taskname"
                 android:layout_width="0dp"
@@ -32,21 +31,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/item_duedate"
-                android:textStyle="bold"/>
+                android:text="@string/item_duedate"/>
             <DatePicker
                 android:id="@+id/date_picker"
                 android:layout_width="0dp"
-                android:layout_height="300dp"
+                android:layout_height="200dp"
                 android:layout_weight="1"
-                android:datePickerMode="calendar" />
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"/>
         </TableRow>
         <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/item_memo"
-                android:textStyle="bold"/>
+                android:text="@string/item_memo"/>
             <EditText
                 android:id="@+id/edt_memo"
                 android:layout_width="0dp"
@@ -58,8 +56,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/item_priority"
-                android:textStyle="bold"/>
+                android:text="@string/item_priority"/>
             <Spinner
                 android:id="@+id/spn_priority"
                 android:layout_width="0dp"
@@ -72,8 +69,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/item_status"
-                android:textStyle="bold"/>
+                android:text="@string/item_status"/>
             <Spinner
                 android:id="@+id/spn_status"
                 android:layout_width="0dp"

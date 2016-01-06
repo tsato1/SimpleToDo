@@ -1,6 +1,7 @@
 package tsato.com.simpletodo;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,8 +15,12 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private final static int REQUEST_EDIT = 1;
+
+    private ArrayList<Item> mItemList = null;
     private ListView mItemListView = null;
     private ItemListAdapter mItemListAdapter = null;
+    private DBAdapter mDBAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ArrayList<Item> arrayList = createTestItems();
-
+        mItemList = new ArrayList<>();
         mItemListView = (ListView) findViewById(R.id.lsv_todos);
-        mItemListAdapter = new ItemListAdapter(this, 0, arrayList);
+        mItemListAdapter = new ItemListAdapter(this, 0, mItemList);
         mItemListView.setAdapter(mItemListAdapter);
+
+        mDBAdapter = new DBAdapter(this);
+        loadItems();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +45,28 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private void loadItems() {
+        mItemList.clear();
+        mDBAdapter.open();
+        Cursor c = mDBAdapter.getAllItems();
+
+        if (c.moveToFirst()) {
+            do {
+                Item item = new Item(
+                        c.getString(c.getColumnIndex(DBAdapter.COL_TASKNAME)),
+                        c.getString(c.getColumnIndex(DBAdapter.COL_DUEDATE)),
+                        c.getString(c.getColumnIndex(DBAdapter.COL_MEMO)),
+                        Item.Priority.valueOf(c.getString(c.getColumnIndex(DBAdapter.COL_PRIORITY))),
+                        Item.Status.valueOf(c.getString(c.getColumnIndex(DBAdapter.COL_STATUS)))
+                );
+                mItemList.add(item);
+            } while (c.moveToNext());
+        }
+
+        mDBAdapter.close();
+        mItemListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -57,18 +86,17 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_new) {
             Intent intent = new Intent(this, EditActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_EDIT);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private ArrayList<Item> createTestItems() {
-        ArrayList<Item> arrayList = new ArrayList<>();
-        arrayList.add(new Item("task1", "1/4/2016", "memo", Item.Priority.HIGH, Item.Status.TODO));
-        arrayList.add(new Item("SimpleToDo", "1/17/2016", "make android project for CodePath", Item.Priority.HIGH, Item.Status.TODO));
-
-        return arrayList;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_EDIT) {
+            loadItems();
+        }
     }
 }

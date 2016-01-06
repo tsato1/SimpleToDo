@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by T on 2016/01/04.
  */
 public class Item {
-    public enum Priority {HIGH, MID, LOW}
+    public enum Priority {HIGH, MID, LOW,;}
     public enum Status {TODO, DONE, PENDING}
 
     private String taskName;

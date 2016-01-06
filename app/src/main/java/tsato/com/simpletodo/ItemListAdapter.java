@@ -32,14 +32,14 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
             convertView = mLayoutInflater.inflate(R.layout.row_item_list, null);
         }
 
-        TextView taskNameTxv = (TextView) convertView.findViewById(R.id.txv_taskname);
-        taskNameTxv.setText(item.getTaskName());
+        TextView taskNameTextView = (TextView) convertView.findViewById(R.id.txv_taskname);
+        taskNameTextView.setText(item.getTaskName());
 
-        TextView priorityTxv = (TextView) convertView.findViewById(R.id.txv_priority);
-        priorityTxv.setText(item.getPriority().toString());
+        TextView priorityTextView = (TextView) convertView.findViewById(R.id.txv_priority);
+        priorityTextView.setText(item.getPriority().toString());
 
-        TextView dueTxv = (TextView) convertView.findViewById(R.id.txv_due);
-        dueTxv.setText(item.getDueDate());
+        TextView dueTextView = (TextView) convertView.findViewById(R.id.txv_due);
+        dueTextView.setText(item.getDueDate());
 
         return convertView;
     }
