@@ -81,6 +81,7 @@ public class DBAdapter {
 
     public boolean saveItem(Item item) {
         ContentValues values = new ContentValues();
+        values.put(COL_ID, item.getId());
         values.put(COL_TASKNAME, item.getTaskName());
         values.put(COL_DUEDATE, item.getDueDate());
         values.put(COL_MEMO, item.getMemo());
@@ -88,7 +89,7 @@ public class DBAdapter {
         values.put(COL_STATUS, item.getStatus().toString());
 
         try {
-            db.insertOrThrow(TABLE_ITEM, null, values);
+            db.replace(TABLE_ITEM, null, values);
             return  true;
         } catch (SQLiteConstraintException e) {
             e.printStackTrace();

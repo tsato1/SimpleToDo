@@ -27,6 +27,7 @@ public class EditActivity extends AppCompatActivity {
     private Spinner mStatusSpinner;
     private Item.Priority mSelectedPriority;
     private Item.Status mSelectedStatus;
+    private String mItemId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class EditActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         Item item = (Item) extras.getSerializable("itemSerializable");
+        mItemId = item.getId();
 
         mTaskNameEditText = (EditText) findViewById(R.id.edt_taskname);
         mTaskNameEditText.setText(item.getTaskName());
@@ -45,7 +47,7 @@ public class EditActivity extends AppCompatActivity {
             int year = Integer.parseInt(item.getDueDate().substring(0, 4));
             int month = Integer.parseInt(item.getDueDate().substring(5, 7));
             int date = Integer.parseInt(item.getDueDate().substring(8, 10));
-            mDueDatePicker.updateDate(year, month, date);
+            mDueDatePicker.updateDate(year, month-1, date);
             //Log.d("EditActivity", "year: " + year + ", month: " + month + ", date: " + date);
         }
         mMemoEditText = (EditText) findViewById(R.id.edt_memo);
@@ -64,7 +66,7 @@ public class EditActivity extends AppCompatActivity {
             }
         });
         mStatusSpinner = (Spinner) findViewById(R.id.spn_status);
-        mStatusSpinner.setSelection(Item.Priority.valueOf(item.getPriority().toString()).ordinal());
+        mStatusSpinner.setSelection(Item.Status.valueOf(item.getStatus().toString()).ordinal());
         mStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -88,10 +90,8 @@ public class EditActivity extends AppCompatActivity {
     }
 
     private void doSaveItem() {
-        DBAdapter dbAdapter = new DBAdapter(this);
-
         Item item = new Item(
-                "",
+                mItemId,
                 mTaskNameEditText.getText().toString(),
                 new SimpleDateFormat(MainActivity.DATE_FORMAT).format(mDueDatePicker.getCalendarView().getDate()),
                 mMemoEditText.getText().toString(),
@@ -99,18 +99,21 @@ public class EditActivity extends AppCompatActivity {
                 mSelectedStatus
         );
 
-        Log.d("EditActivity",
+        Log.d("EditActivity on save",
                 "task name: " + mTaskNameEditText.getText().toString() + ", "
-                + "date: " + DateFormat.getDateInstance().format(mDueDatePicker.getCalendarView().getDate()) + ", "
-                + "memo: " + mMemoEditText.getText().toString() + ", "
-                + "priority: " + mSelectedPriority.toString() + ", "
-                + "status: " + mSelectedStatus.toString());
+                        + "date: " + DateFormat.getDateInstance().format(mDueDatePicker.getCalendarView().getDate()) + ", "
+                        + "memo: " + mMemoEditText.getText().toString() + ", "
+                        + "priority: " + mSelectedPriority.toString() + ", "
+                        + "status: " + mSelectedStatus.toString());
 
+        DBAdapter dbAdapter = new DBAdapter(this);
         dbAdapter.open();
         if (dbAdapter.saveItem(item)) {
             Toast.makeText(this, getString(R.string.info_save_successful), Toast.LENGTH_SHORT).show();
         };
         dbAdapter.close();
+
+        mItemId = null;
     }
 
     @Override
@@ -122,14 +125,10 @@ public class EditActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.home) {
-            finish(); //todo doesnt work
+        if (id == android.R.id.home) {
+            finish();
         } else if (id == R.id.action_save) {
             if (isReadyToSave()) {
                 doSaveItem();

@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class Item implements Serializable {
     public enum Priority {HIGH, MID, LOW,;}
-    public enum Status {TODO, DONE, PENDING}
+    public enum Status {TODO, DONE, PENDING,;}
 
     private String id;
     private String taskName;

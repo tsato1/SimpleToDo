@@ -24,6 +24,7 @@
     <string name="warning_delete_item">Delete this item?</string>
 
     <string name="error_enter_taskname">Please enter the task name.</string>
+    <string name="error_delete_item_fail">Error: Failed to delete item.</string>
 
     <array name="array_priority">
         <item>High</item>
