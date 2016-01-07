@@ -10,21 +10,24 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private final static int REQUEST_EDIT = 0;
+    public  final static String DATE_FORMAT = "yyyy-MM-dd";
 
     private ArrayList<Item> mItemList = null;
     private ListView mItemListView = null;
@@ -58,15 +61,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadItems();
+    }
+
     public class ListItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final View itemDetailView = layoutInflater.inflate(R.layout.dialog_item_detail, null);
 
-            Item item = (Item) parent.getItemAtPosition(position);
+            final Item item = (Item) parent.getItemAtPosition(position);
+
+            String formatedDate = "";
+            try {
+                Date date = new SimpleDateFormat(DATE_FORMAT).parse(item.getDueDate());
+                formatedDate = DateFormat.getInstance().format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
             ((TextView) itemDetailView.findViewById(R.id.txv_taskname)).setText(item.getTaskName());
-            ((TextView) itemDetailView.findViewById(R.id.txv_due)).setText(item.getDueDate());
+            ((TextView) itemDetailView.findViewById(R.id.txv_due)).setText(formatedDate);
             ((TextView) itemDetailView.findViewById(R.id.txv_memo)).setText(item.getMemo());
             ((TextView) itemDetailView.findViewById(R.id.txv_priority)).setText(item.getPriority().toString());
             ((TextView) itemDetailView.findViewById(R.id.txv_status)).setText(item.getStatus().toString());
@@ -78,7 +96,9 @@ public class MainActivity extends AppCompatActivity {
             dialog.setPositiveButton(R.string.action_edit, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
+                    Intent intent = new Intent(MainActivity.this, EditActivity.class);
+                    intent.putExtra("itemSerializable", item);
+                    startActivityForResult(intent, REQUEST_EDIT);
                 }
             });
             dialog.show();
@@ -140,20 +160,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        int id = menuItem.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_new) {
+            Item item = new Item(null, null, null, null, Item.Priority.HIGH, Item.Status.TODO);
             Intent intent = new Intent(this, EditActivity.class);
+            intent.putExtra("itemSerializable", item);
             startActivityForResult(intent, REQUEST_EDIT);
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(menuItem);
     }
 
     @Override

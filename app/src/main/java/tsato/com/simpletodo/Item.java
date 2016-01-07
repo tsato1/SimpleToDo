@@ -1,11 +1,12 @@
 package tsato.com.simpletodo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by T on 2016/01/04.
  */
-public class Item {
+public class Item implements Serializable {
     public enum Priority {HIGH, MID, LOW,;}
     public enum Status {TODO, DONE, PENDING}
 

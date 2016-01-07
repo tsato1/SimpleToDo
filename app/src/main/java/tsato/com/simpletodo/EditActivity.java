@@ -14,6 +14,7 @@ import android.widget.Toast;
 import android.util.Log;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by T on 2016/01/04.
@@ -34,10 +35,23 @@ public class EditActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        Bundle extras = getIntent().getExtras();
+        Item item = (Item) extras.getSerializable("itemSerializable");
+
         mTaskNameEditText = (EditText) findViewById(R.id.edt_taskname);
+        mTaskNameEditText.setText(item.getTaskName());
         mDueDatePicker = (DatePicker) findViewById(R.id.date_picker);
+        if (item.getDueDate() != null) {
+            int year = Integer.parseInt(item.getDueDate().substring(0, 4));
+            int month = Integer.parseInt(item.getDueDate().substring(5, 7));
+            int date = Integer.parseInt(item.getDueDate().substring(8, 10));
+            mDueDatePicker.updateDate(year, month, date);
+            //Log.d("EditActivity", "year: " + year + ", month: " + month + ", date: " + date);
+        }
         mMemoEditText = (EditText) findViewById(R.id.edt_memo);
+        mMemoEditText.setText(item.getMemo());
         mPrioritySpinner = (Spinner) findViewById(R.id.spn_priority);
+        mPrioritySpinner.setSelection(Item.Priority.valueOf(item.getPriority().toString()).ordinal());
         mPrioritySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -50,6 +64,7 @@ public class EditActivity extends AppCompatActivity {
             }
         });
         mStatusSpinner = (Spinner) findViewById(R.id.spn_status);
+        mStatusSpinner.setSelection(Item.Priority.valueOf(item.getPriority().toString()).ordinal());
         mStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -78,17 +93,18 @@ public class EditActivity extends AppCompatActivity {
         Item item = new Item(
                 "",
                 mTaskNameEditText.getText().toString(),
-                DateFormat.getDateInstance().format(mDueDatePicker.getCalendarView().getDate()),
+                new SimpleDateFormat(MainActivity.DATE_FORMAT).format(mDueDatePicker.getCalendarView().getDate()),
                 mMemoEditText.getText().toString(),
                 mSelectedPriority,
                 mSelectedStatus
         );
 
-        Log.d("taskName", mTaskNameEditText.getText().toString());
-        Log.d("date", DateFormat.getDateInstance().format(mDueDatePicker.getCalendarView().getDate()));
-        Log.d("memo", mMemoEditText.getText().toString());
-        Log.d("priority", mSelectedPriority.toString());
-        Log.d("status", mSelectedStatus.toString());
+        Log.d("EditActivity",
+                "task name: " + mTaskNameEditText.getText().toString() + ", "
+                + "date: " + DateFormat.getDateInstance().format(mDueDatePicker.getCalendarView().getDate()) + ", "
+                + "memo: " + mMemoEditText.getText().toString() + ", "
+                + "priority: " + mSelectedPriority.toString() + ", "
+                + "status: " + mSelectedStatus.toString());
 
         dbAdapter.open();
         if (dbAdapter.saveItem(item)) {
@@ -113,7 +129,7 @@ public class EditActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.home) {
-            finish();
+            finish(); //todo doesnt work
         } else if (id == R.id.action_save) {
             if (isReadyToSave()) {
                 doSaveItem();

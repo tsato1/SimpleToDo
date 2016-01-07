@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,6 +36,14 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
             convertView = mLayoutInflater.inflate(R.layout.row_item_list, null);
         }
 
+        String formatedDate = "";
+        try {
+            Date date = new SimpleDateFormat(MainActivity.DATE_FORMAT).parse(item.getDueDate());
+            formatedDate = DateFormat.getInstance().format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         TextView taskNameTextView = (TextView) convertView.findViewById(R.id.txv_taskname);
         taskNameTextView.setText(item.getTaskName());
 
@@ -39,7 +51,7 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
         priorityTextView.setText(item.getPriority().toString());
 
         TextView dueTextView = (TextView) convertView.findViewById(R.id.txv_due);
-        dueTextView.setText(item.getDueDate());
+        dueTextView.setText(formatedDate);
 
         return convertView;
     }
