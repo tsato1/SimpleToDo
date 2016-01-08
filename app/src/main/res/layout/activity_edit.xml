@@ -15,68 +15,109 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TableRow>
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="@dimen/text_view_right_margin"
                 android:text="@string/item_taskname"/>
             <EditText
                 android:id="@+id/edt_taskname"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
                 android:hint="@string/hint_max_10"
                 android:maxLength="10"/>
         </TableRow>
-        <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_thickness"
+            android:background="?android:attr/listDivider"/>
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="@dimen/text_view_right_margin"
                 android:text="@string/item_duedate"/>
             <DatePicker
                 android:id="@+id/date_picker"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
                 android:datePickerMode="spinner"
                 android:calendarViewShown="false"/>
         </TableRow>
-        <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_thickness"
+            android:background="?android:attr/listDivider"/>
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="@dimen/text_view_right_margin"
                 android:text="@string/item_memo"/>
             <EditText
                 android:id="@+id/edt_memo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
                 android:hint="@string/hint_max_100"
                 android:maxLength="100"/>
         </TableRow>
-        <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_thickness"
+            android:background="?android:attr/listDivider"/>
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="@dimen/text_view_right_margin"
                 android:text="@string/item_priority"/>
             <Spinner
                 android:id="@+id/spn_priority"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
                 android:drawSelectorOnTop="false"
                 android:entries="@array/array_priority"/>
         </TableRow>
-        <TableRow>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_thickness"
+            android:background="?android:attr/listDivider"/>
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="@dimen/text_view_right_margin"
                 android:text="@string/item_status"/>
             <Spinner
                 android:id="@+id/spn_status"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
                 android:drawSelectorOnTop="false"
                 android:entries="@array/array_status"/>
         </TableRow>

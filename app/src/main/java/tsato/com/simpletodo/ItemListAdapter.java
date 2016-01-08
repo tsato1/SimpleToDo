@@ -45,13 +45,13 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
         }
 
         TextView taskNameTextView = (TextView) convertView.findViewById(R.id.txv_taskname);
-        taskNameTextView.setText(item.getTaskName());
+        taskNameTextView.setText(item.getId() + ": " + item.getTaskName());
 
         TextView priorityTextView = (TextView) convertView.findViewById(R.id.txv_priority);
         priorityTextView.setText(item.getPriority().toString());
 
         TextView dueTextView = (TextView) convertView.findViewById(R.id.txv_due);
-        dueTextView.setText(formatedDate);
+        dueTextView.setText("Due: " + formatedDate);
 
         return convertView;
     }
