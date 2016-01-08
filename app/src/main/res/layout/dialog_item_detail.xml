@@ -16,55 +16,65 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/item_taskname"
-                android:paddingRight="@dimen/dialog_text_view_right_margin"/>
+                android:paddingRight="@dimen/dialog_text_view_right_margin"
+                android:textColor="@color/colorPrimaryDarkAux"/>
             <TextView
                 android:id="@+id/txv_taskname"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDarkAux"/>
         </TableRow>
         <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/item_duedate"
-                android:paddingRight="@dimen/dialog_text_view_right_margin"/>
+                android:paddingRight="@dimen/dialog_text_view_right_margin"
+                android:textColor="@color/colorPrimaryDarkAux"/>
             <TextView
                 android:id="@+id/txv_due"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDarkAux" />
         </TableRow>
         <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/item_memo"
-                android:paddingRight="@dimen/dialog_text_view_right_margin"/>
+                android:paddingRight="@dimen/dialog_text_view_right_margin"
+                android:textColor="@color/colorPrimaryDarkAux"/>
             <TextView
                 android:id="@+id/txv_memo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDarkAux"/>
         </TableRow>
         <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/item_priority"
-                android:paddingRight="@dimen/dialog_text_view_right_margin"/>
+                android:paddingRight="@dimen/dialog_text_view_right_margin"
+                android:textColor="@color/colorPrimaryDarkAux"/>
             <TextView
                 android:id="@+id/txv_priority"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDarkAux"/>
         </TableRow>
         <TableRow>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/item_status"
-                android:paddingRight="@dimen/dialog_text_view_right_margin"/>
+                android:paddingRight="@dimen/dialog_text_view_right_margin"
+                android:textColor="@color/colorPrimaryDarkAux"/>
             <TextView
                 android:id="@+id/txv_status"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDarkAux"/>
         </TableRow>
     </TableLayout>
 </LinearLayout>
