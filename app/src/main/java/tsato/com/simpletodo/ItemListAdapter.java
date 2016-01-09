@@ -46,10 +46,13 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
         }
 
         TextView taskNameTextView = (TextView) convertView.findViewById(R.id.txv_taskname);
-        taskNameTextView.setText(item.getId() + ": " + item.getTaskName());
+        taskNameTextView.setText(item.getTaskName());
+
+        TextView statusTextView = (TextView) convertView.findViewById(R.id.txv_status);
+        statusTextView.setText(item.getStatus().toString() + "  ");
 
         TextView priorityTextView = (TextView) convertView.findViewById(R.id.txv_priority);
-        priorityTextView.setText(item.getPriority().toString());
+        priorityTextView.setText("< " + item.getPriority().toString() + " >");
         Item.setColorOnPriority(mContext, priorityTextView, item);
 
         TextView dueTextView = (TextView) convertView.findViewById(R.id.txv_due);

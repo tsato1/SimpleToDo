@@ -12,8 +12,12 @@ import java.util.Date;
  * Created by T on 2016/01/04.
  */
 public class Item implements Serializable {
-    public enum Priority {HIGH, MID, LOW,;}
-    public enum Status {TODO, DONE, PENDING,;}
+    public static <E extends Enum<E>> E fromOrdinal(Class<E> enumClass, int ordinal) {
+        E[] enumArray = enumClass.getEnumConstants();
+        return enumArray[ordinal];
+    }
+    public enum Priority {HIGH, MID, LOW;}
+    public enum Status {TODO, PEND, DONE;}
 
     private String id;
     private String taskName;

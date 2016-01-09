@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadItems() {
         mItemList.clear();
         mDBAdapter.open();
-        Cursor c = mDBAdapter.getAllItems();
+        Cursor c = mDBAdapter.getAllitemsInOrder();
 
         if (c.moveToFirst()) {
             do {
@@ -145,9 +146,9 @@ public class MainActivity extends AppCompatActivity {
                         c.getString(c.getColumnIndex(DBAdapter.COL_TASKNAME)),
                         c.getString(c.getColumnIndex(DBAdapter.COL_DUEDATE)),
                         c.getString(c.getColumnIndex(DBAdapter.COL_MEMO)),
-                        Item.Priority.valueOf(c.getString(c.getColumnIndex(DBAdapter.COL_PRIORITY))),
-                        Item.Status.valueOf(c.getString(c.getColumnIndex(DBAdapter.COL_STATUS)))
-                );
+                        Item.fromOrdinal(Item.Priority.class, c.getInt(c.getColumnIndex(DBAdapter.COL_PRIORITY))),
+                        Item.fromOrdinal(Item.Status.class, c.getInt(c.getColumnIndex(DBAdapter.COL_STATUS)))
+                        );
                 mItemList.add(item);
             } while (c.moveToNext());
         }

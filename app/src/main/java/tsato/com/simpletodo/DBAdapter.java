@@ -43,8 +43,8 @@ public class DBAdapter {
                         + COL_TASKNAME + " TEXT NOT NULL,"
                         + COL_DUEDATE + " TEXT NOT NULL,"
                         + COL_MEMO + " TEXT NOT NULL,"
-                        + COL_PRIORITY + " TEXT NOT NULL,"
-                        + COL_STATUS + " TEXT NOT NULL);"
+                        + COL_PRIORITY + " INTEGER,"
+                        + COL_STATUS + " INTEGER);"
                 );
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -79,14 +79,19 @@ public class DBAdapter {
         return db.query(TABLE_ITEM, null, null, null, null, null, null);
     }
 
+    public Cursor getAllitemsInOrder() {
+        String query = "SELECT * FROM " + TABLE_ITEM + " ORDER BY " + COL_STATUS + " ASC, " +COL_PRIORITY + " ASC, " + COL_DUEDATE + " ASC LIMIT 100";
+        return db.rawQuery(query, new String[] {});
+    }
+
     public boolean saveItem(Item item) {
         ContentValues values = new ContentValues();
         values.put(COL_ID, item.getId());
         values.put(COL_TASKNAME, item.getTaskName());
         values.put(COL_DUEDATE, item.getDueDate());
         values.put(COL_MEMO, item.getMemo());
-        values.put(COL_PRIORITY, item.getPriority().toString());
-        values.put(COL_STATUS, item.getStatus().toString());
+        values.put(COL_PRIORITY, item.getPriority().ordinal());
+        values.put(COL_STATUS, item.getStatus().ordinal());
 
         try {
             db.replace(TABLE_ITEM, null, values);
