@@ -5,5 +5,7 @@
     <color name="colorPrimaryDarkAux">#0B0F06</color>
     <color name="colorAccent">#cd853f</color>
     <color name="colorBackground">#f5f5f5</color>
-    <color name="colorPriorityHigh">#449921</color>
+    <color name="colorPriorityHigh">#dc0000</color>
+    <color name="colorPriorityMid">#FF9900</color>
+    <color name="colorPriorityLow">#0066CC</color>
 </resources>

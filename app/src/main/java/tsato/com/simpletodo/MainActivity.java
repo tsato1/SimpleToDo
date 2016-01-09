@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -51,14 +52,15 @@ public class MainActivity extends AppCompatActivity {
         mDBAdapter = new DBAdapter(this);
         loadItems();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+/***** Maybe use later *****/
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
     }
 
     @Override
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             String formatedDate = "";
             try {
                 Date date = new SimpleDateFormat(DATE_FORMAT).parse(item.getDueDate());
-                formatedDate = DateFormat.getInstance().format(date);
+                formatedDate = DateFormat.getDateInstance().format(date);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -86,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
             ((TextView) itemDetailView.findViewById(R.id.txv_taskname)).setText(item.getTaskName());
             ((TextView) itemDetailView.findViewById(R.id.txv_due)).setText(formatedDate);
             ((TextView) itemDetailView.findViewById(R.id.txv_memo)).setText(item.getMemo());
-            ((TextView) itemDetailView.findViewById(R.id.txv_priority)).setText(item.getPriority().toString());
+            TextView priorityTextView =(TextView) itemDetailView.findViewById(R.id.txv_priority);
+            priorityTextView.setText(item.getPriority().toString());
+            Item.setColorOnPriority(MainActivity.this, priorityTextView, item);
             ((TextView) itemDetailView.findViewById(R.id.txv_status)).setText(item.getStatus().toString());
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);

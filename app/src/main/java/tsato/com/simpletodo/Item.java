@@ -1,5 +1,10 @@
 package tsato.com.simpletodo;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.TextView;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -48,5 +53,20 @@ public class Item implements Serializable {
 
     public Status getStatus() {
         return this.status;
+    }
+
+    static public TextView setColorOnPriority(Context context, TextView txv, Item item) {
+        switch (item.getPriority()) {
+            case HIGH:
+                txv.setTextColor(ContextCompat.getColor(context, R.color.colorPriorityHigh));
+                break;
+            case MID:
+                txv.setTextColor(ContextCompat.getColor(context, R.color.colorPriorityMid));
+                break;
+            case LOW:
+                txv.setTextColor(ContextCompat.getColor(context, R.color.colorPriorityLow));
+                break;
+        }
+        return txv;
     }
 }

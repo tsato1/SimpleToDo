@@ -1,6 +1,7 @@
 package tsato.com.simpletodo;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
         String formatedDate = "";
         try {
             Date date = new SimpleDateFormat(MainActivity.DATE_FORMAT).parse(item.getDueDate());
-            formatedDate = DateFormat.getInstance().format(date);
+            formatedDate = DateFormat.getDateInstance().format(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -49,6 +50,7 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
 
         TextView priorityTextView = (TextView) convertView.findViewById(R.id.txv_priority);
         priorityTextView.setText(item.getPriority().toString());
+        Item.setColorOnPriority(mContext, priorityTextView, item);
 
         TextView dueTextView = (TextView) convertView.findViewById(R.id.txv_due);
         dueTextView.setText("Due: " + formatedDate);
