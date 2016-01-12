@@ -1,4 +1,4 @@
-package tsato.com.simpletodo;
+package com.tsato.simpletodo;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -6,12 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
@@ -40,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -52,16 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         mDBAdapter = new DBAdapter(this);
         loadItems();
-
-/***** Maybe use later *****/
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     @Override
@@ -95,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             ((TextView) itemDetailView.findViewById(R.id.txv_status)).setText(item.getStatus().toString());
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-            dialog.setIcon(R.mipmap.ic_launcher);
+            dialog.setIcon(R.mipmap.ic_simpletodo);
             dialog.setTitle(getApplicationContext().getString(R.string.title_item_detail));
             dialog.setView(itemDetailView);
             dialog.setPositiveButton(R.string.action_edit, new DialogInterface.OnClickListener() {
@@ -116,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             final Item item = (Item) parent.getItemAtPosition(position);
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-            dialog.setIcon(R.mipmap.ic_launcher);
+            dialog.setIcon(R.mipmap.ic_simpletodo);
             dialog.setTitle(getApplicationContext().getString(R.string.warning_delete_item));
             dialog.setPositiveButton(R.string.action_delete, new DialogInterface.OnClickListener() {
                 @Override

@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="tsato.com.simpletodo.MainActivity"
+    tools:context="com.tsato.simpletodo.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <TableLayout
@@ -30,8 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
-                android:hint="@string/hint_max_10"
-                android:maxLength="10"/>
+                android:hint="@string/hint_max_20"
+                android:maxLength="20"/>
         </TableRow>
         <View
             android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package tsato.com.simpletodo;
+package com.tsato.simpletodo;
 
 import org.junit.Test;
 

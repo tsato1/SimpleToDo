@@ -1,4 +1,4 @@
-package tsato.com.simpletodo;
+package com.tsato.simpletodo;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -50,6 +48,11 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
 
         TextView statusTextView = (TextView) convertView.findViewById(R.id.txv_status);
         statusTextView.setText(item.getStatus().toString() + "  ");
+        if (item.getStatus() == Item.Status.DONE) {
+            (convertView.findViewById(R.id.lnl_row_item)).setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorGreyOut));
+        } else {
+            (convertView.findViewById(R.id.lnl_row_item)).setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorBackground));
+        }
 
         TextView priorityTextView = (TextView) convertView.findViewById(R.id.txv_priority);
         priorityTextView.setText("< " + item.getPriority().toString() + " >");

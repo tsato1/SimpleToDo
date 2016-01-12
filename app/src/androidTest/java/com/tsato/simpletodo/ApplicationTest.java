@@ -1,4 +1,4 @@
-package tsato.com.simpletodo;
+package com.tsato.simpletodo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

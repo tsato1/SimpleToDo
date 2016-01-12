@@ -4,6 +4,7 @@
     <color name="colorPrimary">#4D4F28</color>
     <color name="colorPrimaryDarkAux">#0B0F06</color>
     <color name="colorAccent">#cd853f</color>
+    <color name="colorGreyOut">#48484800</color>
     <color name="colorBackground">#f5f5f5</color>
     <color name="colorPriorityHigh">#dc0000</color>
     <color name="colorPriorityMid">#FF9900</color>

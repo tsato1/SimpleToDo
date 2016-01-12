@@ -13,6 +13,7 @@
     <string name="item_status">Status</string>
 
     <string name="hint_max_10">Max 10 characters</string>
+    <string name="hint_max_20">Max 20 characters</string>
     <string name="hint_max_30">Max 30 characters</string>
     <string name="hint_max_100">Max 100 characters</string>
 
@@ -33,7 +34,7 @@
     </array>
     <array name="array_status">
         <item>TODO</item>
-        <item>PENDING</item>
+        <item>PEND</item>
         <item>DONE</item>
     </array>
 </resources>

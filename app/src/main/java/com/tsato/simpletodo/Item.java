@@ -1,12 +1,10 @@
-package tsato.com.simpletodo;
+package com.tsato.simpletodo;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
 import android.widget.TextView;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by T on 2016/01/04.
