@@ -22,10 +22,6 @@ The following **optional** features are implemented:
 * [ ] Add support for selecting the priority of each todo item (and display in listview item)
 * [ ] Tweak the style improving the UI / UX, play with colors, images or backgrounds
 
-The following **additional** features are implemented:
-
-* [ ] Add Notification that alarms (Notification.DEFAULT_ALL) one day before the due date
-
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
