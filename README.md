@@ -24,7 +24,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [ ] Add Notification that alarms (Notification.DEFAULT_ALL) one day before the due date
 
 ## Video Walkthrough 
 
