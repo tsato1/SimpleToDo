@@ -1,8 +1,8 @@
-# Pre-work - *SimpleToDo*
+# *SimpleToDo*
 
 **SimpleToDo** is an Android application that allows building a todo list and basic todo items management functionality including adding new items, editing and deleting an existing item.
 
-Submitted by: **Takahide Sato**
+CodePath Project : Submitted by: **Takahide Sato**
 
 Time spent: **10** hours spent in total
 
